@@ -117,6 +117,8 @@ class ETAGProcessor:
     def is_if_none_match_failed(self, res_etag, etags, if_none_match):
         if res_etag and if_none_match:
             etags = [etag.strip('"') for etag in etags]
+            # stripe leading W/ from weak etag
+            etags = [etag.strip('W/"') for etag in etags]
             return res_etag in etags or '*' in etags
         else:
             return False
